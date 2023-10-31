@@ -1,4 +1,4 @@
-package tees.ac.uk.Q2078619.newsapp
+package tees.ac.uk.q2078619.newsapp
 
 import org.junit.Test
 

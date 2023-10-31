@@ -1,4 +1,4 @@
-package tees.ac.uk.Q2078619.newsapp.ui.theme
+package tees.ac.uk.q2078619.newsapp.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
