@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1001834332017",
+    "project_id": "newsapp-4bd52",
+    "storage_bucket": "newsapp-4bd52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001834332017:android:61a85bfc68d2843d1440d0",
+        "android_client_info": {
+          "package_name": "tees.ac.uk.Q2078619.newsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoHNrIosFFGdMgSouT74LR3LTwiaFchgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
