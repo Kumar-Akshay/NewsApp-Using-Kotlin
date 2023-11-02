@@ -1,4 +1,4 @@
-package tees.ac.uk.Q2078619.newsapp.data.signup
+package tees.ac.uk.Q2078619.newsapp.viewmodels.signup
 
 sealed class RegistrationUIEvent {
     data class FirstNameChanged(val firstName:String) : RegistrationUIEvent()

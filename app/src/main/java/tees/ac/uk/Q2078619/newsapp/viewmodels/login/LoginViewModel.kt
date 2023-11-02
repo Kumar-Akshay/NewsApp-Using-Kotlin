@@ -5,9 +5,9 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import tees.ac.uk.Q2078619.newsapp.data.Validator
-import tees.ac.uk.Q2078619.newsapp.data.login.LoginUIEvent
-import tees.ac.uk.Q2078619.newsapp.data.login.LoginUIState
+import tees.ac.uk.Q2078619.newsapp.utils.Validator
+import tees.ac.uk.Q2078619.newsapp.viewmodels.login.LoginUIEvent
+import tees.ac.uk.Q2078619.newsapp.viewmodels.login.LoginUIState
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppRouter
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppScreen
 

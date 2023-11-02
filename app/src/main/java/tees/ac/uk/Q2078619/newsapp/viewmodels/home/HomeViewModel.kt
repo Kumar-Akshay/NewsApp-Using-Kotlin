@@ -1,4 +1,4 @@
-package tees.ac.uk.Q2078619.newsapp.data.home
+package tees.ac.uk.Q2078619.newsapp.viewmodels.home
 
 import android.util.Log
 import androidx.compose.material.icons.Icons
@@ -8,7 +8,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import tees.ac.uk.Q2078619.newsapp.data.NavigationItem
+import tees.ac.uk.Q2078619.newsapp.utils.NavigationItem
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppRouter
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppScreen
 
