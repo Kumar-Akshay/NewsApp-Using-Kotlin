@@ -25,17 +25,24 @@ class HomeViewModel : ViewModel() {
             itemId = "homeScreen"
         ),
         NavigationItem(
-            title = "Settings",
-            icon = Icons.Default.Settings,
-            description = "Settings Screen",
-            itemId = "settingsScreen"
+            title = "Top News HeadLine",
+            icon = Icons.Default.Favorite,
+            description = "Top Headline News Screen",
+            itemId = "newsHeadlineScreen"
         ),
         NavigationItem(
-            title = "Favorite",
+            title = "Sport News",
             icon = Icons.Default.Favorite,
-            description = "Favorite Screen",
-            itemId = "favoriteScreen"
-        )
+            description = "Sport News Screen",
+            itemId = "sportNewsScreen"
+        ),
+
+        NavigationItem(
+        title = "Technology News",
+        icon = Icons.Default.Favorite,
+        description = "Sport News Screen",
+        itemId = "sportNewsScreen"
+    )
     )
 
     val isUserLoggedIn: MutableLiveData<Boolean> = MutableLiveData()
@@ -43,9 +50,7 @@ class HomeViewModel : ViewModel() {
     fun logout() {
 
         val firebaseAuth = FirebaseAuth.getInstance()
-
         firebaseAuth.signOut()
-
         val authStateListener = FirebaseAuth.AuthStateListener {
             if (it.currentUser == null) {
                 Log.d(TAG, "Inside sign outsuccess")
@@ -54,9 +59,7 @@ class HomeViewModel : ViewModel() {
                 Log.d(TAG, "Inside sign out is not complete")
             }
         }
-
         firebaseAuth.addAuthStateListener(authStateListener)
-
     }
 
     fun checkForActiveSession() {

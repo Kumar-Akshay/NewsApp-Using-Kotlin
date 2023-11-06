@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tees.ac.uk.Q2078619.newsapp.R
 import tees.ac.uk.Q2078619.newsapp.components.HeadingTextComponent
+import tees.ac.uk.Q2078619.newsapp.components.NormalTextComponent
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppRouter
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppScreen
 import tees.ac.uk.Q2078619.newsapp.navigation.SystemBackButtonHandler
@@ -24,7 +25,8 @@ fun TermsAndConditionsScreen() {
         .background(color = Color.White)
         .padding(16.dp)) {
 
-        HeadingTextComponent(value = stringResource(id = R.string.terms_and_conditions_header))
+        HeadingTextComponent(value = stringResource(id = R.string.Terms_and_Conditions))
+        NormalTextComponent(value = stringResource(id = R.string.Terms_and_Conditions_Text))
     }
 
     SystemBackButtonHandler {

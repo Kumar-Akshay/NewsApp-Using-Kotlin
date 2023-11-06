@@ -59,7 +59,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                 NormalTextComponent(value = stringResource(id = R.string.login))
                 HeadingTextComponent(value = stringResource(id = R.string.welcome))
                 Spacer(modifier = Modifier.height(20.dp))
-
                 TextFieldComponent(labelValue = stringResource(id = R.string.emailMsg),
                     painterResource(id = R.drawable.message),
                     onTextChanged = {
@@ -67,7 +66,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                     },
                     errorStatus = loginViewModel.loginUIState.value.emailError
                 )
-
                 PasswordTextFieldComponent(
                     labelValue = stringResource(id = R.string.passwordMsg),
                     painterResource(id = R.drawable.lock),
@@ -76,12 +74,9 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                     },
                     errorStatus = loginViewModel.loginUIState.value.passwordError
                 )
-
                 Spacer(modifier = Modifier.height(40.dp))
                 UnderLinedTextComponent(value = stringResource(id = R.string.forgot_password))
-
                 Spacer(modifier = Modifier.height(40.dp))
-
                 ButtonComponent(
                     value = stringResource(id = R.string.login),
                     onButtonClicked = {
@@ -89,11 +84,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                     },
                     isEnabled = loginViewModel.emailPasswordChecked.value
                 )
-
                 Spacer(modifier = Modifier.height(20.dp))
-
                 DividerTextComponent()
-
                 ClickableLoginTextComponent(tryingToLogin = false, onTextSelected = {
                     NewsAppRouter.navigateTo(NewsAppScreen.SignUpScreen)
                 })
@@ -105,13 +97,11 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
         }
         else{
             Toast.makeText(
-                LocalContext.current, "Email and Password are incorrect, Try again",
+                LocalContext.current, stringResource(id = R.string.emailPasswordIncorrect),
                 Toast.LENGTH_SHORT).show()
 
         }
-
     }
-
 
     SystemBackButtonHandler {
         NewsAppRouter.navigateTo(NewsAppScreen.SignUpScreen)

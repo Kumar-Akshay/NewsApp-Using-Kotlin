@@ -15,9 +15,11 @@
     <string name="terms_and_conditions_header">Term of Use</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
+    <string name="emailPasswordIncorrect">Email and Password are incorrect, Try again</string>
     <string name="or">or</string>
     <string name="go_to_login">Already have an account? Login</string>
-
+    <string name="Terms_and_Conditions">Terms and Conditions</string>
+    <string name="Terms_and_Conditions_Text">Terms and Conditions</string>
     <string name="forgot_password">Forgot your password</string>
     <string name="home">Home</string>
     <string name="logout">Logout</string>
