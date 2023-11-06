@@ -98,14 +98,6 @@ class RegistrationViewModel : ViewModel() {
             statusValue = registrationUIState.value.privacyPolicyAccepted
         )
 
-
-        Log.d(TAG, "Inside_validateDataWithRules")
-        Log.d(TAG, "fNameResult= $fNameResult")
-        Log.d(TAG, "lNameResult= $lNameResult")
-        Log.d(TAG, "emailResult= $emailResult")
-        Log.d(TAG, "passwordResult= $passwordResult")
-        Log.d(TAG, "privacyPolicyResult= $privacyPolicyResult")
-
         registrationUIState.value = registrationUIState.value.copy(
             firstNameError = fNameResult.status,
             lastNameError = lNameResult.status,
@@ -128,7 +120,7 @@ class RegistrationViewModel : ViewModel() {
 
 
     private fun createUserInFirebase(email: String, password: String) {
-
+        Log.d(TAG, "inside the createUserInFirebase Function")
         signUpInProgress.value = true
 
         FirebaseAuth

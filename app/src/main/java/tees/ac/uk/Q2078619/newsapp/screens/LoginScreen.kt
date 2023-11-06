@@ -1,5 +1,6 @@
 package tees.ac.uk.Q2078619.newsapp.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -85,7 +87,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                     onButtonClicked = {
                         loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                     },
-                    isEnabled = loginViewModel.allValidationsPassed.value
+                    isEnabled = loginViewModel.emailPasswordChecked.value
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -101,6 +103,13 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
         if(loginViewModel.loginInProgress.value) {
             CircularProgressIndicator()
         }
+        else{
+            Toast.makeText(
+                LocalContext.current, "Email and Password are incorrect, Try again",
+                Toast.LENGTH_SHORT).show()
+
+        }
+
     }
 
 

@@ -2,7 +2,9 @@ package tees.ac.uk.q2078619.newsapp.data.login
 
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import tees.ac.uk.Q2078619.newsapp.utils.Validator
@@ -17,7 +19,7 @@ class LoginViewModel : ViewModel() {
 
     var loginUIState = mutableStateOf(LoginUIState())
 
-    var allValidationsPassed = mutableStateOf(false)
+    var emailPasswordChecked = mutableStateOf(false)
 
     var loginInProgress = mutableStateOf(false)
 
@@ -58,7 +60,7 @@ class LoginViewModel : ViewModel() {
             passwordError = passwordResult.status
         )
 
-        allValidationsPassed.value = emailResult.status && passwordResult.status
+        emailPasswordChecked.value = emailResult.status && passwordResult.status
 
     }
 
@@ -83,7 +85,6 @@ class LoginViewModel : ViewModel() {
             .addOnFailureListener {
                 Log.d(TAG,"Inside_login_failure")
                 Log.d(TAG,"${it.localizedMessage}")
-
                 loginInProgress.value = false
 
             }

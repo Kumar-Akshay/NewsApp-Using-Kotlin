@@ -1,6 +1,7 @@
 package tees.ac.uk.Q2078619.newsapp.components
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.*
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.*
 import androidx.compose.ui.text.SpanStyle
@@ -249,7 +251,8 @@ fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit) {
 }
 
 @Composable
-fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false) {
+fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false, isPasswordField:Boolean = false) {
+    val context = LocalContext.current
     Button(
         modifier = Modifier
             .fillMaxWidth()
