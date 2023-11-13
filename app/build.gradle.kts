@@ -55,16 +55,28 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.4.2")
     implementation("androidx.activity:activity-compose:1.4.2")
 
+    // Compose and Material UI
     implementation("androidx.compose.material:material:1.4.2")
+    implementation("com.android.volley:volley:1.2.1")
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.2")
     implementation("androidx.compose.ui:ui-tooling-preview:1.5.2")
     implementation("androidx.compose.material:material-icons-extended:1.4.2")
+    // lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
+    //Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
-
     implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Retrofit for network requests
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    // Coroutine for asynchronous tasks
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 }

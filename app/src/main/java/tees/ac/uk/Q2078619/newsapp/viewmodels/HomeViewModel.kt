@@ -1,10 +1,9 @@
-package tees.ac.uk.Q2078619.newsapp.viewmodels.home
+package tees.ac.uk.Q2078619.newsapp.viewmodels
 
 import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth

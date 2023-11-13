@@ -20,7 +20,7 @@ import tees.ac.uk.Q2078619.newsapp.R
 import tees.ac.uk.Q2078619.newsapp.components.AppToolbar
 import tees.ac.uk.Q2078619.newsapp.components.NavigationDrawerBody
 import tees.ac.uk.Q2078619.newsapp.components.NavigationDrawerHeader
-import tees.ac.uk.Q2078619.newsapp.viewmodels.home.HomeViewModel
+import tees.ac.uk.Q2078619.newsapp.viewmodels.HomeViewModel
 
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
