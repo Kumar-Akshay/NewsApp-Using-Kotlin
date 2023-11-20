@@ -1,4 +1,4 @@
-package tees.ac.uk.Q2078619.newsapp.model
+package tees.ac.uk.Q2078619.newsapp.data.model
 
 data class NewsArticle(
     val author: String?,

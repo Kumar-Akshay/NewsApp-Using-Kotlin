@@ -1,6 +1,7 @@
-package tees.ac.uk.Q2078619.newsapp.repository
+package com.example.thenewsroom.data.remote.repository
 
-import tees.ac.uk.Q2078619.newsapp.model.NewsArticle
+import tees.ac.uk.Q2078619.newsapp.data.model.NewsArticle
+import tees.ac.uk.Q2078619.newsapp.repository.NewsRepository
 import tees.ac.uk.Q2078619.newsapp.services.NewsApiService
 import tees.ac.uk.Q2078619.newsapp.utils.Resource
 
@@ -10,22 +11,10 @@ class NewsRepositoryImpl(
 ): NewsRepository {
     override suspend fun getTopHeadlines(category: String): Resource<List<NewsArticle>> {
         return try{
-            val response = newsApi.getBreakingNews(category = category)
+            val response = newsApi.TopHeadlineNews(category = category)
             Resource.Success(response.articles)
         }catch (e: Exception){
             Resource.Error(message = "Failed to fetch news ${e.message}")
         }
-    }
-
-    override suspend fun getTechnologyNews(category: String): Resource<List<NewsArticle>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getSportNews(category: String): Resource<List<NewsArticle>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getEntertainmentNews(category: String): Resource<List<NewsArticle>> {
-        TODO("Not yet implemented")
     }
 }

@@ -29,7 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import tees.ac.uk.Q2078619.newsapp.R
-import tees.ac.uk.Q2078619.newsapp.model.NewsArticle
+import tees.ac.uk.Q2078619.newsapp.data.model.NewsArticle
 import tees.ac.uk.Q2078619.newsapp.viewmodels.HomeViewModel
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppRouter
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppScreen
