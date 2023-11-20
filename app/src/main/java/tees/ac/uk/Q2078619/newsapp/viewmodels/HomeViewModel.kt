@@ -84,18 +84,18 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    fun getTopHeadlineNews(){
+    fun getTopHeadlineNews(category : String){
         viewModelScope.launch {
             try
             {
-                val response = newsRepository.getTopHeadlines("technology")
+                val response = newsRepository.getTopHeadlines(category)
                 if (!response.data.isNullOrEmpty())
                 {
                     newsList.value = response.data!!
                     statusMsg = "Recent Top Headline News"
                 }
                 else {
-                    Log.d(TAG,"TopHeadline Error")
+                    Log.d(TAG,"TopHeadline else")
                     statusMsg = "Unable to get news, Try again"
                 }
             } catch (e: Exception) {
