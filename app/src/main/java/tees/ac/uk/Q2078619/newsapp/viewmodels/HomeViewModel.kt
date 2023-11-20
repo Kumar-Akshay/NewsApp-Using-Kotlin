@@ -8,12 +8,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.thenewsroom.data.remote.repository.NewsRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import tees.ac.uk.Q2078619.newsapp.data.model.NewsArticle
 import tees.ac.uk.Q2078619.newsapp.utils.NavigationItem
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppRouter
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppScreen
+import tees.ac.uk.Q2078619.newsapp.services.NewsApiService
 import tees.ac.uk.Q2078619.newsapp.services.RetrofitServiceInstance
 import tees.ac.uk.q2078619.newsapp.data.login.LoginViewModel
 
@@ -21,8 +23,9 @@ import tees.ac.uk.q2078619.newsapp.data.login.LoginViewModel
 class HomeViewModel : ViewModel() {
 
     private val TAG = HomeViewModel::class.simpleName
+    var statusMsg = "";
     var newsList = mutableStateOf<List<NewsArticle>>(listOf())
-    private val newsService = RetrofitServiceInstance.newsService
+    val newsRepository = NewsRepositoryImpl(RetrofitServiceInstance.newsService)
 
     val navigationItemsList = listOf<NavigationItem>(
         NavigationItem(
@@ -58,20 +61,16 @@ class HomeViewModel : ViewModel() {
         firebaseAuth.signOut()
         val authStateListener = FirebaseAuth.AuthStateListener {
             if (it.currentUser == null) {
-                Log.d(TAG, "Inside sign outsuccess")
                 NewsAppRouter.navigateTo(NewsAppScreen.LoginScreen)
             } else {
-                Log.d(TAG, "Inside sign out is not complete")
             }
         }
         firebaseAuth.addAuthStateListener(authStateListener)
     }
     fun checkForActiveSession() {
         if (FirebaseAuth.getInstance().currentUser != null) {
-            Log.d(TAG, "Valid session")
             isUserLoggedIn.value = true
         } else {
-            Log.d(TAG, "User is not logged in")
             isUserLoggedIn.value = false
         }
     }
@@ -87,19 +86,21 @@ class HomeViewModel : ViewModel() {
 
     fun getTopHeadlineNews(){
         viewModelScope.launch {
-            try {
-                val response = newsService.TopHeadlineNews("technology")
-                if (response.status == "ok" && !response.articles.isEmpty()) {
-                    newsList.value = response.articles!!
-                    Log.d(TAG,"Inside_TopHeadLineNews")
-                    Log.d(TAG,"count +"+newsList.value.count())
-                } else {
-                    // Handle errors here
-                    Log.d(TAG,"Inside_Error")
+            try
+            {
+                val response = newsRepository.getTopHeadlines("technology")
+                if (!response.data.isNullOrEmpty())
+                {
+                    newsList.value = response.data!!
+                    statusMsg = "Recent Top Headline News"
+                }
+                else {
+                    Log.d(TAG,"TopHeadline Error")
+                    statusMsg = "Unable to get news, Try again"
                 }
             } catch (e: Exception) {
-                Log.d(TAG,"Inside_Exception")
-                // Handle network or other errors here
+                Log.d(TAG,"TopHeadline Exception")
+                statusMsg = "Unable to get news, Try again"
             }
         }
     }

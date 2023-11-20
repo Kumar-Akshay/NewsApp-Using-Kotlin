@@ -1,6 +1,7 @@
 package tees.ac.uk.Q2078619.newsapp.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,9 +17,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,8 +42,14 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
+    // Example of observing some LiveData or state object from your ViewModel
     homeViewModel.getUserData()
     homeViewModel.getTopHeadlineNews()
+
+    // Assuming you have some LiveData or state in your ViewModel that represents the toast message
+    val toastMessage = homeViewModel.statusMsg
+
+    Toast.makeText(LocalContext.current,toastMessage, Toast.LENGTH_SHORT).show()
 
     Scaffold(
         scaffoldState = scaffoldState,
