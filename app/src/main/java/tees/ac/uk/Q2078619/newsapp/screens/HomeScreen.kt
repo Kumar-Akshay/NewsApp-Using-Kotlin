@@ -1,6 +1,9 @@
 package tees.ac.uk.Q2078619.newsapp.screens
 
 import android.util.Log
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,9 +21,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -28,6 +35,9 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,9 +47,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -56,7 +68,6 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-
     var context = LocalContext.current
     LaunchedEffect(Unit) {
         homeViewModel.getTopHeadlineNews("general")
@@ -64,7 +75,6 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
         val toastMessage = homeViewModel.statusMsg
         Toast.makeText(context,toastMessage, Toast.LENGTH_SHORT).show()
     }
-
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -101,11 +111,14 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 .padding(paddingValues)
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
-                NewsArticlesList(homeViewModel.newsList.value, onCardClicked = {},)
+                NewsArticlesList(homeViewModel.newsList.value, onCardClicked ={}
+                )
             }
         }
     }
 }
+
+
 
 @Composable
 fun NewsArticlesList(
