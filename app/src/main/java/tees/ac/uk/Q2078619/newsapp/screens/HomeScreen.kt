@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -25,20 +27,24 @@ import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import kotlinx.coroutines.launch
 import tees.ac.uk.Q2078619.newsapp.R
-import tees.ac.uk.Q2078619.newsapp.app.ImageHolder
-import tees.ac.uk.Q2078619.newsapp.app.NewsArticleCard
 import tees.ac.uk.Q2078619.newsapp.components.AppToolbar
 import tees.ac.uk.Q2078619.newsapp.components.NavigationDrawerBody
 import tees.ac.uk.Q2078619.newsapp.components.NavigationDrawerHeader
@@ -51,12 +57,14 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-    homeViewModel.getUserData()
-    homeViewModel.getTopHeadlineNews("technology")
+    var context = LocalContext.current
+    LaunchedEffect(Unit) {
+        homeViewModel.getTopHeadlineNews("general")
+        homeViewModel.getUserData()
+        val toastMessage = homeViewModel.statusMsg
+        Toast.makeText(context,toastMessage, Toast.LENGTH_SHORT).show()
+    }
 
-    val toastMessage = homeViewModel.statusMsg
-
-    Toast.makeText(LocalContext.current,toastMessage, Toast.LENGTH_SHORT).show()
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -76,8 +84,11 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
         drawerContent = {
             NavigationDrawerHeader(homeViewModel.emailId.value)
             NavigationDrawerBody(navigationDrawerItems = homeViewModel.navigationItemsList,
-                onNavigationItemClicked = {
-
+                onNavigationItemClicked = { navigationItem ->
+                    coroutineScope.launch {
+                        scaffoldState.drawerState.close()
+                    }
+                    homeViewModel.getTopHeadlineNews(navigationItem.name)
                 })
         }
 
@@ -114,6 +125,7 @@ fun NewsArticlesList(
     }
 }
 
+
 @Composable
 fun NewsArticleCard(
     modifier: Modifier = Modifier,
@@ -124,16 +136,14 @@ fun NewsArticleCard(
         modifier = Modifier.clickable { onCardClicked(article) }
     ) {
         Column(  modifier = Modifier.padding(12.dp)) {
-            ImageHolder(imageUrl = article.urlToImage)
+            ImageHolder(imageUrl = article.image)
             Text(
                 text = article.title,
-                style = MaterialTheme.typography.body1,
-                maxLines = 1,
+                style = MaterialTheme.typography.h6,
+                maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
-
             Spacer(modifier = Modifier.height(8.dp))
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -150,29 +160,29 @@ fun NewsArticleCard(
             }
         }
     }
-
 }
-
 
 
 @Composable
-fun NewsCard(newsArticle: NewsArticle) {
-    Card(
+fun ImageHolder(
+    imageUrl: String?,
+    modifier: Modifier = Modifier,
+) {
+    AsyncImage(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(imageUrl)
+            .crossfade(true)
+            .build(),
+        contentDescription = "Image",
+        contentScale = ContentScale.Crop,
         modifier = Modifier
+            .clip(RoundedCornerShape(4.dp))
             .fillMaxWidth()
-            .padding(8.dp),
-        elevation = 4.dp
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(text = newsArticle.title, style = MaterialTheme.typography.h6)
-            Text(text = newsArticle.publishedAt.toString(), style = MaterialTheme.typography.body2)
-            // Add other news details you wish to display
-        }
-    }
+            .aspectRatio(16 / 9f),
+        placeholder = painterResource(R.drawable.img),
+        error = painterResource(R.drawable.img_1)
+    )
 }
-
 @Preview
 @Composable
 fun HomeScreenPreview() {

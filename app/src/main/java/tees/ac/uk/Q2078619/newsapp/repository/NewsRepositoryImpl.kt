@@ -5,8 +5,6 @@ import tees.ac.uk.Q2078619.newsapp.data.model.NewsArticle
 import tees.ac.uk.Q2078619.newsapp.repository.NewsRepository
 import tees.ac.uk.Q2078619.newsapp.services.NewsApiService
 import tees.ac.uk.Q2078619.newsapp.utils.Resource
-import tees.ac.uk.Q2078619.newsapp.viewmodels.HomeViewModel
-
 
 class NewsRepositoryImpl(
     private val newsApi: NewsApiService
@@ -17,7 +15,7 @@ class NewsRepositoryImpl(
         return try{
             val response = newsApi.TopHeadlineNews(category = category)
             Log.d(TAG,"Repo Implementation - going - "+category)
-            if (response.status == "ok" && !response.articles.isEmpty())
+            if (!response.articles.isEmpty())
             {
                 Log.d(TAG,"Repo Implementation - pass")
                 Resource.Success(response.articles)

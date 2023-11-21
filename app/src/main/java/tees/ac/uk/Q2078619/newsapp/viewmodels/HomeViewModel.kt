@@ -29,30 +29,35 @@ class HomeViewModel : ViewModel() {
 
     val navigationItemsList = listOf<NavigationItem>(
         NavigationItem(
-            title = "Home",
-            icon = Icons.Default.Home,
-            description = "Home Screen",
-            itemId = "homeScreen"
+            title = "Business News",
+            icon = Icons.Default.Favorite,
+            description = "Business News",
+            name = "business"
         ),
         NavigationItem(
-            title = "Top News HeadLine",
+            title = "Technology News",
             icon = Icons.Default.Favorite,
-            description = "Top Headline News Screen",
-            itemId = "newsHeadlineScreen"
+            description = "Sport News Screen",
+            name = "technology"
         ),
         NavigationItem(
             title = "Sport News",
             icon = Icons.Default.Favorite,
             description = "Sport News Screen",
-            itemId = "sportNewsScreen"
+            name = "sports"
         ),
-
         NavigationItem(
-        title = "Technology News",
-        icon = Icons.Default.Favorite,
-        description = "Sport News Screen",
-        itemId = "sportNewsScreen"
-    )
+            title = "World News",
+            icon = Icons.Default.Favorite,
+            description = "World News Screen",
+            name = "world"
+        ),
+        NavigationItem(
+            title = "Entertainment News",
+            icon = Icons.Default.Favorite,
+            description = "Entertainment News Screen",
+            name = "entertainment"
+        ),
     )
     val isUserLoggedIn: MutableLiveData<Boolean> = MutableLiveData()
     fun logout() {
@@ -92,7 +97,7 @@ class HomeViewModel : ViewModel() {
                 if (!response.data.isNullOrEmpty())
                 {
                     newsList.value = response.data!!
-                    statusMsg = "Recent Top Headline News"
+                    statusMsg = "Recent News"
                 }
                 else {
                     Log.d(TAG,"TopHeadline else")
