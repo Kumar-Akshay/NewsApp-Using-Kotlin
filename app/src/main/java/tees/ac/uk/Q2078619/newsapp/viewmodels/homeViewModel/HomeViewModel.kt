@@ -1,10 +1,11 @@
-package tees.ac.uk.Q2078619.newsapp.viewmodels
+package tees.ac.uk.Q2078619.newsapp.viewmodels.homeViewModel
 
 import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,15 +16,12 @@ import tees.ac.uk.Q2078619.newsapp.data.model.NewsArticle
 import tees.ac.uk.Q2078619.newsapp.utils.NavigationItem
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppRouter
 import tees.ac.uk.Q2078619.newsapp.navigation.NewsAppScreen
-import tees.ac.uk.Q2078619.newsapp.services.NewsApiService
 import tees.ac.uk.Q2078619.newsapp.services.RetrofitServiceInstance
-import tees.ac.uk.q2078619.newsapp.data.login.LoginViewModel
 
 
 class HomeViewModel : ViewModel() {
 
     private val TAG = HomeViewModel::class.simpleName
-    var statusMsg = "";
     var newsList = mutableStateOf<List<NewsArticle>>(listOf())
     val newsRepository = NewsRepositoryImpl(RetrofitServiceInstance.newsService)
 
@@ -97,15 +95,12 @@ class HomeViewModel : ViewModel() {
                 if (!response.data.isNullOrEmpty())
                 {
                     newsList.value = response.data!!
-                    statusMsg = "Recent News"
                 }
                 else {
                     Log.d(TAG,"TopHeadline else")
-                    statusMsg = "Unable to get news, Try again"
                 }
             } catch (e: Exception) {
                 Log.d(TAG,"TopHeadline Exception")
-                statusMsg = "Unable to get news, Try again"
             }
         }
     }
