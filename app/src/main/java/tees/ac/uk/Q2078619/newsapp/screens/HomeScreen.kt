@@ -1,14 +1,9 @@
 package tees.ac.uk.Q2078619.newsapp.screens
 
-import android.util.Log
-import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,26 +14,26 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -51,7 +46,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -61,19 +55,20 @@ import tees.ac.uk.Q2078619.newsapp.components.AppToolbar
 import tees.ac.uk.Q2078619.newsapp.components.NavigationDrawerBody
 import tees.ac.uk.Q2078619.newsapp.components.NavigationDrawerHeader
 import tees.ac.uk.Q2078619.newsapp.data.model.NewsArticle
-import tees.ac.uk.Q2078619.newsapp.viewmodels.HomeViewModel
+import tees.ac.uk.Q2078619.newsapp.viewmodels.homeViewModel.HomeViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
     var context = LocalContext.current
+
     LaunchedEffect(Unit) {
         homeViewModel.getTopHeadlineNews("general")
         homeViewModel.getUserData()
-        val toastMessage = homeViewModel.statusMsg
-        Toast.makeText(context,toastMessage, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"Recent News", Toast.LENGTH_SHORT).show()
     }
 
     Scaffold(
@@ -196,8 +191,49 @@ fun ImageHolder(
         error = painterResource(R.drawable.img_1)
     )
 }
-@Preview
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen()
+fun BottomSheetContent(
+    article: NewsArticle,
+    onReadFullStoryButtonClicked: () -> Unit
+) {
+    Surface(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = article.title,
+                style = MaterialTheme.typography.body1
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = article.description ?: "",
+                style = MaterialTheme.typography.body1
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            ImageHolder(imageUrl = article.image)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = article.content ?: "",
+                style = MaterialTheme.typography.body1
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = article.source.name ?: "",
+                    style = MaterialTheme.typography.body2,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onReadFullStoryButtonClicked
+            ) {
+                Text(text = "Read Full Story")
+            }
+        }
+    }
 }
