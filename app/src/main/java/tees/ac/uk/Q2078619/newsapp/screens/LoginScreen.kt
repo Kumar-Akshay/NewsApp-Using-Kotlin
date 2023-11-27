@@ -75,8 +75,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                     errorStatus = loginViewModel.loginUIState.value.passwordError
                 )
                 Spacer(modifier = Modifier.height(40.dp))
-                UnderLinedTextComponent(value = stringResource(id = R.string.forgot_password))
-                Spacer(modifier = Modifier.height(40.dp))
                 ButtonComponent(
                     value = stringResource(id = R.string.login),
                     onButtonClicked = {
