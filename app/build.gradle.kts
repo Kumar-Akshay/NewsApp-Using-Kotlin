@@ -61,6 +61,7 @@ dependencies {
     // Compose and Material UI
     implementation("androidx.compose.material:material:1.4.2")
     implementation("com.android.volley:volley:1.2.1")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.2")
     implementation("androidx.compose.ui:ui-tooling-preview:1.5.2")
     implementation("androidx.compose.material:material-icons-extended:1.4.2")

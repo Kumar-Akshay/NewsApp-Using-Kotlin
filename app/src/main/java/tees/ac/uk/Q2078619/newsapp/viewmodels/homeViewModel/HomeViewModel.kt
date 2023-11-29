@@ -25,6 +25,8 @@ class HomeViewModel : ViewModel() {
     var newsList = mutableStateOf<List<NewsArticle>>(listOf())
     val newsRepository = NewsRepositoryImpl(RetrofitServiceInstance.newsService)
 
+    var loadingNewsInProgress = mutableStateOf(false)
+
     val navigationItemsList = listOf<NavigationItem>(
         NavigationItem(
             title = "Business News",
@@ -88,12 +90,14 @@ class HomeViewModel : ViewModel() {
 
 
     fun getTopHeadlineNews(category : String){
+        loadingNewsInProgress.value = true;
         viewModelScope.launch {
             try
             {
                 val response = newsRepository.getTopHeadlines(category)
                 if (!response.data.isNullOrEmpty())
                 {
+                    loadingNewsInProgress.value = false;
                     newsList.value = response.data!!
                 }
                 else {

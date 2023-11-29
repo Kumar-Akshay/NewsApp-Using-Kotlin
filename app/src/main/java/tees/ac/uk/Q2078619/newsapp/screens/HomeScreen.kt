@@ -1,9 +1,11 @@
 package tees.ac.uk.Q2078619.newsapp.screens
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,6 +20,7 @@ import androidx.compose.material3.Button
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -49,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.launch
 import tees.ac.uk.Q2078619.newsapp.R
 import tees.ac.uk.Q2078619.newsapp.components.AppToolbar
@@ -63,6 +67,8 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+    var currentURL by remember{ mutableStateOf("") }
+
     var context = LocalContext.current
 
     LaunchedEffect(Unit) {
@@ -106,9 +112,32 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 .padding(paddingValues)
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
-                NewsArticlesList(homeViewModel.newsList.value, onCardClicked ={}
+                NewsArticlesList(homeViewModel.newsList.value, onCardClicked ={currentURL = it.url}
                 )
             }
+        }
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        if (homeViewModel.loadingNewsInProgress.value) {
+            CircularProgressIndicator()
+        } else {
+            Toast.makeText(
+                LocalContext.current, "Loading News",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
+        if (!currentURL.isEmpty()) {
+            ArticleScreen(currentURL)
+        }
+
+
+        BackHandler(currentURL.isNotEmpty()) {
+            currentURL = ""
         }
     }
 }
@@ -190,50 +219,4 @@ fun ImageHolder(
         placeholder = painterResource(R.drawable.img),
         error = painterResource(R.drawable.img_1)
     )
-}
-@Composable
-fun BottomSheetContent(
-    article: NewsArticle,
-    onReadFullStoryButtonClicked: () -> Unit
-) {
-    Surface(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = article.title,
-                style = MaterialTheme.typography.body1
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = article.description ?: "",
-                style = MaterialTheme.typography.body1
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            ImageHolder(imageUrl = article.image)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = article.content ?: "",
-                style = MaterialTheme.typography.body1
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = article.source.name ?: "",
-                    style = MaterialTheme.typography.body2,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = onReadFullStoryButtonClicked
-            ) {
-                Text(text = "Read Full Story")
-            }
-        }
-    }
 }
