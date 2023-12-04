@@ -15,22 +15,27 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import tees.ac.uk.Q2078619.newsapp.app.NewsApp
+import tees.ac.uk.Q2078619.newsapp.viewmodels.homeViewModel.HomeViewModel
 
 class MainActivity : ComponentActivity() {
     lateinit var  fusedLocationProviderClient : FusedLocationProviderClient
-
+    var lat = 0.0;
+    var long = 0.0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            NewsApp()
-            }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getCurrentLocation()
-
+        setContent {
+            var homeViewModel: HomeViewModel = viewModel()
+            homeViewModel.latitude =lat;
+            homeViewModel.longitude = long;
+            NewsApp(homeViewModel)
         }
+    }
     private fun getCurrentLocation()
     {
         if(checkPermission())
@@ -43,7 +48,6 @@ class MainActivity : ComponentActivity() {
                     requestPermission()
                     return
                 }
-
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener(this){task ->
                     val location: Location?= task.result
                     if(location == null)
@@ -52,7 +56,9 @@ class MainActivity : ComponentActivity() {
                     }
                     else
                     {
-                        Toast.makeText(this,""+location.latitude+" "+location.longitude+"", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext,"Granted",Toast.LENGTH_SHORT).show()
+                        lat = location.latitude;
+                        long = location.longitude
                     }
                 }
             }
@@ -68,7 +74,6 @@ class MainActivity : ComponentActivity() {
             requestPermission()
         }
     }
-
     private fun isLocationEnabled():Boolean {
         val locationManager:LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return  locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -112,7 +117,6 @@ class MainActivity : ComponentActivity() {
         {
             if(grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED)
             {
-                Toast.makeText(applicationContext,"Granted",Toast.LENGTH_SHORT).show()
                 getCurrentLocation()
             }
             else
@@ -123,10 +127,4 @@ class MainActivity : ComponentActivity() {
     }
 
 
-}
-
-@Preview
-@Composable
-fun DefaultPreview(){
-    NewsApp()
 }

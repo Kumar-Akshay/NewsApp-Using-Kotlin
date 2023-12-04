@@ -6,6 +6,7 @@ import tees.ac.uk.Q2078619.newsapp.utils.Resource
 interface NewsRepository {
 
     suspend fun getTopHeadlines(
-        category: String
+        category: String,
+        country: String
     ): Resource<List<NewsArticle>>
 }

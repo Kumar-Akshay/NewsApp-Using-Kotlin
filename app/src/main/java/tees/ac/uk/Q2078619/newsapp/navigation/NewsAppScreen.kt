@@ -12,7 +12,7 @@ sealed  class NewsAppScreen {
 
 object NewsAppRouter {
 
-    var currentScreen: MutableState<NewsAppScreen> = mutableStateOf(NewsAppScreen.SignUpScreen)
+    var currentScreen: MutableState<NewsAppScreen> = mutableStateOf(NewsAppScreen.LoginScreen)
 
     fun navigateTo(destination : NewsAppScreen){
         currentScreen.value = destination

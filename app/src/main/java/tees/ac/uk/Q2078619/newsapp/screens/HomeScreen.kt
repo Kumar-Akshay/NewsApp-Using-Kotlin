@@ -70,11 +70,12 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     var currentURL by remember{ mutableStateOf("") }
 
     var context = LocalContext.current
+    var country = homeViewModel.getCountryCode(context,homeViewModel.latitude,homeViewModel.longitude)
 
     LaunchedEffect(Unit) {
-        homeViewModel.getTopHeadlineNews("general")
+        homeViewModel.getTopHeadlineNews("general",country.toString())
         homeViewModel.getUserData()
-        Toast.makeText(context,"Recent News", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"Recent News ", Toast.LENGTH_SHORT).show()
     }
 
     Scaffold(
@@ -99,7 +100,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     coroutineScope.launch {
                         scaffoldState.drawerState.close()
                     }
-                    homeViewModel.getTopHeadlineNews(navigationItem.name)
+                    homeViewModel.getTopHeadlineNews(navigationItem.name,country.toString())
                 })
         }
 

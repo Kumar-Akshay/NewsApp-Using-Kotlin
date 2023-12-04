@@ -16,7 +16,7 @@ import tees.ac.uk.Q2078619.newsapp.screens.TermsAndConditionsScreen
 import tees.ac.uk.q2078619.newsapp.screens.RegistrationScreen
 
 @Composable
-fun NewsApp(homeViewModel: HomeViewModel = viewModel()) {
+fun NewsApp(homeViewModel: HomeViewModel) {
 
     homeViewModel.checkForActiveSession()
 

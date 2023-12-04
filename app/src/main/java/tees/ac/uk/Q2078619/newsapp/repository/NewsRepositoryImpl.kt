@@ -11,9 +11,9 @@ class NewsRepositoryImpl(
 ): NewsRepository {
 
     private val TAG = NewsRepositoryImpl::class.simpleName
-    override suspend fun getTopHeadlines(category: String): Resource<List<NewsArticle>> {
+    override suspend fun getTopHeadlines(category: String, country: String): Resource<List<NewsArticle>> {
         return try{
-            val response = newsApi.TopHeadlineNews(category = category)
+            val response = newsApi.TopHeadlineNews(category = category, country = country)
             Log.d(TAG,"Repo Implementation - going - "+category)
             if (!response.articles.isEmpty())
             {
