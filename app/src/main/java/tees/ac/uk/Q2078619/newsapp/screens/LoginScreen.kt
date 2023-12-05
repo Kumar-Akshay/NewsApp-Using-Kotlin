@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import tees.ac.uk.Q2078619.newsapp.R
 import tees.ac.uk.Q2078619.newsapp.components.ButtonComponent
+import tees.ac.uk.Q2078619.newsapp.components.CheckboxComponent
 import tees.ac.uk.Q2078619.newsapp.components.ClickableLoginTextComponent
 import tees.ac.uk.Q2078619.newsapp.components.DividerTextComponent
 import tees.ac.uk.Q2078619.newsapp.components.HeadingTextComponent
@@ -75,6 +76,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                     },
                     errorStatus = loginViewModel.loginUIState.value.passwordError
                 )
+
                 Spacer(modifier = Modifier.height(40.dp))
                 ButtonComponent(
                     value = stringResource(id = R.string.login),

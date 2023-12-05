@@ -18,11 +18,12 @@
     <string name="emailPasswordIncorrect">Email and Password are incorrect, Try again</string>
     <string name="or">or</string>
     <string name="go_to_login">Already have an account? Login</string>
-    <string name="Terms_and_Conditions">Terms and Conditions</string>
-    <string name="Terms_and_Conditions_Text">Terms and Conditions</string>
     <string name="forgot_password">Forgot your password</string>
     <string name="home">Home</string>
     <string name="logout">Logout</string>
     <string name="menu">Menu</string>
     <string name="navigation_header">App Drawer</string>
+
+    <string name="Terms_and_Conditions">Terms and Conditions for NewsApp</string>
+    <string name="Terms_and_Conditions_Text">1. Introduction Acceptance of Terms: By accessing News App, users agree to these Terms and Conditions. Modification of Terms: We reserve the right to modify these terms at any time. Continued use of the app after changes constitutes acceptance of the new terms. 2. User Accounts Account Creation: Users must provide accurate information when creating an account. Account Responsibility: Users are responsible for any activity that occurs under their account. 3. Content Intellectual Property Rights: All content on the app is the property of NewsApp Technologies or its licensors and is protected by copyright and intellectual property laws. Use of Content: Content from the app may not be copied, reproduced, distributed, or used in any other manner without prior written permission. 5. Privacy Policy: Reference to the apps Privacy Policy, outlining how user data is collected, used, and protected.</string>
 </resources>

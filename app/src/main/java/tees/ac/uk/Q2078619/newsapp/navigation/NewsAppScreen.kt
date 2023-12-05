@@ -5,9 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 
 sealed  class NewsAppScreen {
     object SignUpScreen : NewsAppScreen()
-    object TermsAndConditionsScreen : NewsAppScreen()
     object LoginScreen : NewsAppScreen()
     object HomeScreen : NewsAppScreen()
+    object TermsAndConditionsScreen : NewsAppScreen()
 }
 
 object NewsAppRouter {
