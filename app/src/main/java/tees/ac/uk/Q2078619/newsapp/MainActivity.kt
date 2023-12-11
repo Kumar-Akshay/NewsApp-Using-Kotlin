@@ -20,6 +20,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import tees.ac.uk.Q2078619.newsapp.app.NewsApp
 import tees.ac.uk.Q2078619.newsapp.viewmodels.homeViewModel.HomeViewModel
+import tees.ac.uk.q2078619.newsapp.screens.SplashScreen
 
 class MainActivity : ComponentActivity() {
     lateinit var  fusedLocationProviderClient : FusedLocationProviderClient
@@ -30,6 +31,8 @@ class MainActivity : ComponentActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getCurrentLocation()
         setContent {
+            SplashScreen()
+            // after 3 sec it will open NewsApp
             var homeViewModel: HomeViewModel = viewModel()
             homeViewModel.latitude =lat;
             homeViewModel.longitude = long;
