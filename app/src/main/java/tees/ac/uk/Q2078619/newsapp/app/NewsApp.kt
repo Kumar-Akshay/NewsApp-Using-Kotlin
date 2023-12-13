@@ -49,7 +49,7 @@ fun NewsApp(homeViewModel: HomeViewModel) {
                 }
 
                 is NewsAppScreen.LoginScreen -> {
-                    SplashScreenWithDelay()
+                    LoginScreen()
                 }
 
                 is NewsAppScreen.HomeScreen -> {
